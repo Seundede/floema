@@ -1,9 +1,18 @@
-const webpack = require("webpack");
+const path = require("path");
 
-// Plugin to copy files from one place to another
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
-//Plugin to fetch CSS files from Javascript files
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { merge } = require("webpack-merge");
 
-const IS_DEVELOPMENT = process.env.NODE_ENV === "dev";
+const config = require("./webpack.config");
+
+module.exports = merge(config, {
+    mode: "production",
+
+    output: {
+        path: path.join(__dirname, "public")
+    },
+    plugins : [
+        new CleanWebpackPlugin()
+    ]
+})
